@@ -19,7 +19,9 @@ export default new Vuetify({
         info: '#2196F3',
         success: '#4CAF50',
         warning: '#FFC107',
-        background: '#f3f3f4'
+        background: '#f3f3f4',
+        logoTitle: '#E6E6E6',
+        subtitle: '#676a6c'
       },
     },
   },

@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <TopBar v-if="logged === true"/>      
-    <v-main>
+    <v-main class="background">
       <Login v-if="logged === false"/>
       <router-view v-if="logged === true"></router-view>
     </v-main>
