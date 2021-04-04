@@ -19,21 +19,23 @@
     <v-form @submit.prevent="doLogin">
       <v-row justify="center">
         <v-col cols="4">
-          <v-text-field label="Usuario" outlined></v-text-field>
-          <v-autocomplete
+          <v-text-field label="Usuario" outlined v-model="username"></v-text-field>
+          <v-text-field
+            autocomplete="on"
             v-model="password"
             :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
             :rules="[rules.required, rules.min]"
             :type="show ? 'text' : 'password'"
             hint="Mininmo 8 caracteres"
             label="Contraseña"
+            @click:append="show = !show"
             outlined
-          ></v-autocomplete>
+          ></v-text-field>
         </v-col>
       </v-row>
       <v-row justify="center">
         <v-col cols="4">
-          <v-btn color="primary" elevation="2" block type="submit">Login</v-btn>
+          <v-btn :disabled="!statusButton" color="primary" elevation="2" block type="submit">Login</v-btn>
         </v-col>
       </v-row>
     </v-form>
@@ -47,24 +49,39 @@
 
 <script>
 export default {
-  data: () => {
+  data() {
     return {
-      userName: "",
+      username: "",
       password: "",
       show: false,
       rules: {
-        required: (value) => !!value || "Required.",
-        min: (v) => v.length >= 8 || "Min 8 characters",
+        required: value => !!value || "Required.",
+        min: v => v.length >= 8 || "Min 8 characters"
       },
     }
   },
-
-  methods:{
-      doLogin: () => {
-          console.log('usuario ', this.userName)
-          console.log('contraseña ', this.password)
-
+  computed: {
+    statusButton(){
+      if(this.username.length > 1 && this.password.length >= 8){
+        return true
       }
+      return false
+    }
+  },
+  methods:{
+      doLogin() {
+          console.log('usuario ', this.username)
+          console.log('contraseña ', this.password)
+          axios
+            .post('http://dafne.com/user/login')
+            .then((response) => {
+
+            })
+            .catch((error)=>{
+              console.log(error)
+            })
+      }
+
   }
 };
 </script>
