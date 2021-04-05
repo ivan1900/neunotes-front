@@ -1,9 +1,9 @@
 <template>
   <v-app>
-    <TopBar v-if="logged === true"/>      
+    <TopBar v-if="$store.state.isLoggedIn === true"/>      
     <v-main class="background">
-      <Login v-if="logged === false"/>
-      <router-view v-if="logged === true"></router-view>
+      <Login v-if="$store.state.isLoggedIn === false"/>
+      <router-view v-if="$store.state.isLoggedIn === true"></router-view>
     </v-main>
   </v-app>
 </template>

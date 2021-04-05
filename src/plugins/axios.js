@@ -4,8 +4,9 @@ import axios from 'axios'
 const guest = axios.create({
     baseURL: "http://dafne.com/user",
     headers:{
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/x-www-form-urlencoded; chartset=UTF-8",
         "X-Requested-With": "XMLHttpRequest",
+        
     }
 })
 
