@@ -1,12 +1,11 @@
 import Vue from 'vue'
 import axios from 'axios'
-import Vue from 'vue'
 
 const guest = axios.create({
-    baseURL: "http://enpro.com/user",
+    baseURL: "http://dafne.com/user",
     headers:{
-        "Content-Type": 'application/x-www-from-urlencoded',
-        "X-Requested-With": 'XMLHttpRequest',
+        "Content-Type": "application/x-www-form-urlencoded",
+        "X-Requested-With": "XMLHttpRequest",
     }
 })
 

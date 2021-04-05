@@ -56,13 +56,13 @@ export default {
       show: false,
       rules: {
         required: value => !!value || "Required.",
-        min: v => v.length >= 8 || "Min 8 characters"
+        min: v => v.length >= 6 || "Min 6 characters"
       },
     }
   },
   computed: {
     statusButton(){
-      if(this.username.length > 1 && this.password.length >= 8){
+      if(this.username.length > 1 && this.password.length >= 6){
         return true
       }
       return false
@@ -70,12 +70,20 @@ export default {
   },
   methods:{
       doLogin() {
+          const auth = {
+            username: process.env.VUE_APP_CLIENT_ID,
+            password: process.env.VUE_APP_CLIENT_SECRET
+          }
           console.log('usuario ', this.username)
           console.log('contraseña ', this.password)
-          axios
-            .post('http://dafne.com/user/login')
+          const form = new FormData()
+          form.append('username', this.username)
+          form.append('password', this.password)
+          form.append('grant_type', 'password')       
+          this.$guest
+            .post('/login',form,{auth})
             .then((response) => {
-
+              console.log(`resonse`, response.data)
             })
             .catch((error)=>{
               console.log(error)
