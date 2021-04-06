@@ -7,6 +7,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
   state: {
     isLoggedIn: false,
+    navVertical: true,
   },
   getters:{
     loginState: (state) => {
@@ -20,11 +21,10 @@ export default new Vuex.Store({
       if (router.currentRoute.name !== "Home") router.push("/")
     },
     logout(state) {
-      state.isLoggedIn = falseç
+      state.isLoggedIn = false
       localStorage.removeItem("token")
       localStorage.removeItem("expires")
-
-      router.push("/login")
+      router.push("/signin")
     }
   },
   actions: {
