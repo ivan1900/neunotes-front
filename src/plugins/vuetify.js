@@ -21,7 +21,9 @@ export default new Vuetify({
         warning: '#FFC107',
         background: '#f3f3f4',
         logoTitle: '#E6E6E6',
-        subtitle: '#676a6c'
+        subtitle: '#676a6c',
+        greyText: '#999c9e',
+        menuBackground: '#2f4050'
       },
     },
   },

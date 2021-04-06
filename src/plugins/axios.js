@@ -2,7 +2,7 @@ import Vue from 'vue'
 import axios from 'axios'
 
 const guest = axios.create({
-    baseURL: "http://dafne.com/user",
+    baseURL: "http://enpro.com/LoginRes",
     headers:{
         "Content-Type": "application/x-www-form-urlencoded; chartset=UTF-8",
         "X-Requested-With": "XMLHttpRequest",
