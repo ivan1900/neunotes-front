@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer app v-model="$store.state.navVertical" color="menuBackground">
+    <v-navigation-drawer app v-model="$store.state.navVertical" class="menuBackground" dark>
       <v-row class="mt-4 column align-center" >
         <v-col>home</v-col>
       </v-row>
@@ -14,7 +14,16 @@
         </v-list-item-content>
       </v-list-item>
       <v-divider></v-divider>
-
+      <v-list dense nav>
+        <v-list-item link>
+          <v-list-item-icon>
+            <v-icon class="menuText--text">mdi-view-dashboard</v-icon>
+            <v-list-item-content>
+              <v-list-item-title class="menuText--text">  Panel </v-list-item-title>
+            </v-list-item-content>
+          </v-list-item-icon>
+        </v-list-item>
+      </v-list>
       <v-row>
         <v-col>
           <v-btn class="ma-2" color="success" block :to="{name: 'Dashboard'}">Home</v-btn>

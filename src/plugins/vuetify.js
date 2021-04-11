@@ -23,7 +23,8 @@ export default new Vuetify({
         logoTitle: '#E6E6E6',
         subtitle: '#676a6c',
         greyText: '#999c9e',
-        menuBackground: '#2f4050'
+        menuBackground: '#2F4050',
+        menuText: '#a7b1c2'
       },
     },
   },

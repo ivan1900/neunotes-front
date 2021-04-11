@@ -107,7 +107,7 @@ export default {
               const expireDate = new Date(now.getTime() + expiresMs);
               localStorage.setItem("token", this.token)
               localStorage.setItem("expires", expireDate)
-
+              localStorage.setItem("user", this.username)
               this.$store.dispatch("login", expiresMs)
             })
             .catch((error)=>{
