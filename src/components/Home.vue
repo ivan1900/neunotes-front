@@ -20,7 +20,7 @@
         //form.append("user", localStorage.getItem("user"))
         const user = localStorage.getItem("user")
         this.$api
-          .get("/UserResf/" + user)
+          .get("/UsersResf/show/" + user)
           .then( response => {
               console.log(response)
           })
