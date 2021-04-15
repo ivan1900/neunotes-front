@@ -8,6 +8,8 @@ export default new Vuex.Store({
   state: {
     isLoggedIn: false,
     navVertical: true,
+    user: '',
+    language: '',
   },
   getters:{
     loginState: (state) => {
@@ -36,7 +38,10 @@ export default new Vuex.Store({
     },
     logout({ commit }) {
       commit("logout")
-    }
+    },
+    userPreferences(){
+      
+    }    
   },
   modules: {
   }

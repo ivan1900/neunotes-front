@@ -98,8 +98,6 @@ export default {
           this.$guest
             .post('/login',form,{auth})
             .then((response) => {
-              //console.log(`response`, response.data)
-              
               this.token = response.data.access_token;
               this.expires_in = response.data.expires_in;
               const expiresMs = this.expires_in * 1000;
@@ -108,6 +106,7 @@ export default {
               localStorage.setItem("token", this.token)
               localStorage.setItem("expires", expireDate)
               localStorage.setItem("user", this.username)
+              this.userPreferences()
               this.$store.dispatch("login", expiresMs)
             })
             .catch((error)=>{
@@ -117,6 +116,17 @@ export default {
               this.username = ""
               this.password = ""
             })
+      },
+      userPreferences(){
+        const user = localStorage.getItem("user")
+        this.$api
+          .get("/UsersResf/show/" + user)
+          .then( response => {
+              localStorage.setItem("language", response.data.language)
+          })
+          .catch(error =>{
+            console.log(error)
+          }) 
       }
 
   }

@@ -17,17 +17,7 @@
 
     methods:{
       getCurrentUser(){
-        //form.append("user", localStorage.getItem("user"))
-        const user = localStorage.getItem("user")
-        this.$api
-          .get("/UsersResf/show/" + user)
-          .then( response => {
-              console.log(response)
-          })
-          .catch(error =>{
-            console.log(error)
-          }) 
-          
+        
       }
     }
   }
