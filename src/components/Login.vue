@@ -122,7 +122,9 @@ export default {
         this.$api
           .get("/UsersResf/show/" + user)
           .then( response => {
-              localStorage.setItem("language", response.data.language)
+              this.$store.commit("setName", response.data.name)
+              this.$store.commit("setLanguage", response.data.language)
+              this.$store.commit("setPosition", response.data.position)
           })
           .catch(error =>{
             console.log(error)

@@ -8,8 +8,9 @@ export default new Vuex.Store({
   state: {
     isLoggedIn: false,
     navVertical: true,
-    user: '',
+    name: '',
     language: '',
+    position: ''
   },
   getters:{
     loginState: (state) => {
@@ -19,7 +20,6 @@ export default new Vuex.Store({
   mutations: {
     login(state) {
       state.isLoggedIn = true
-      console.log('object :>> ');
       if (router.currentRoute.name !== "Home") router.push("/")
     },
     logout(state) {
@@ -27,6 +27,15 @@ export default new Vuex.Store({
       localStorage.removeItem("token")
       localStorage.removeItem("expires")
       router.push("/signin")
+    },
+    setName(state,name){
+      state.name =name
+    },
+    setLanguage(state, language){
+      state.language = language
+    },
+    setPosition(state, position){
+      state.position = position
     }
   },
   actions: {
@@ -39,7 +48,7 @@ export default new Vuex.Store({
     logout({ commit }) {
       commit("logout")
     },
-    userPreferences(){
+  namePreferences(){
       
     }    
   },
