@@ -16,11 +16,11 @@
       <v-divider></v-divider>
  
       <v-list dense>
-        <v-list-item link>
+        <v-list-item link v-for="item in menuItems" :key="item.item" :to="{name: item.route}">
           <v-list-item-icon>
-            <v-icon class="menuText--text">mdi-view-dashboard</v-icon>
+            <v-icon class="menuText--text">{{item.fa}}</v-icon>
             <v-list-item-content>
-              <v-list-item-title class="menuText--text">  Panel </v-list-item-title>
+              <v-list-item-title class="menuText--text pl-6">{{item.item}}</v-list-item-title>
             </v-list-item-content>
           </v-list-item-icon>
         </v-list-item>
@@ -29,8 +29,8 @@
  
       <v-row>
         <v-col>
-          <v-btn class="ma-2" color="success" block :to="{name: 'Dashboard'}">Home</v-btn>
-          <v-btn class="ma-2" color="success" block :to="{name: 'Users'}">Lista de Tareas</v-btn>
+         
+          <v-btn v-on:click="getMenu">test</v-btn>
         </v-col>
       </v-row>
     </v-navigation-drawer>
@@ -42,13 +42,21 @@ export default ({
 
     data(){
         return{
-            
+            menuItems: []
         }
     },
     methods:{
       getMenu(){
+        const user = localStorage.getItem("user")
         this.$api
-          .get("Menu/index")
+          .get("/MenuResf/show/" + user)
+          .then( response => {
+              console.log(response.data)
+              this.menuItems = response.data
+          })
+          .catch(error =>{
+            console.log(error)
+          }) 
       }
     }
     

@@ -11,11 +11,6 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue')
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  },
-  {
     path: '/signin',
     name: 'Signin',
     component: () => import(/* webpackChunkName: "about" */ '../views/Signin.vue')
@@ -24,6 +19,26 @@ const routes = [
     path: '/users',
     name: 'Users',
     component: () => import(/* webpackChunkName: "about" */ '../views/Users.vue')
+  },
+  {
+    path: '/groups',
+    name: 'Groups',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Groups.vue')
+  },
+  {
+    path: '/managments',
+    name: 'Managments',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Managments.vue')
+  },
+  {
+    path: '/usescase',
+    name: 'Usescase',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Usescase.vue')
+  },
+  {
+    path: '/calendar',
+    name: 'Calendar',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Calendar.vue')
   }
 ]
 
