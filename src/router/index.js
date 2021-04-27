@@ -6,7 +6,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/dashboard',
     name: 'Dashboard',
     component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue')
   },
@@ -39,6 +39,11 @@ const routes = [
     path: '/calendar',
     name: 'Calendar',
     component: () => import(/* webpackChunkName: "about" */ '../views/Calendar.vue')
+  },
+  {
+    path: '*',
+    name: 'any',
+    component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue')
   }
 ]
 

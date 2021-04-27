@@ -24,7 +24,8 @@ export default new Vuetify({
         subtitle: '#676a6c',
         greyText: '#999c9e',
         menuBackground: '#2F4050',
-        menuText: '#a7b1c2'
+        menuText: '#a7b1c2',
+        primaryText: '#676a6c'
       },
     },
   },

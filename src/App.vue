@@ -5,6 +5,7 @@
     <v-main class="background">
       <router-view></router-view>
     </v-main>
+    <Footer/>
   </v-app>
 </template>
 
@@ -12,13 +13,16 @@
 
 import TopBar from './components/TopBar';
 import NavVertical from './components/NavVertical';
+import Footer from './components/Footer';
+
 
 export default {
   name: 'App',
 
   components: {
     TopBar,
-    NavVertical
+    NavVertical,
+    Footer
   },
 
   data: () => ({

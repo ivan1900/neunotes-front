@@ -1,4 +1,5 @@
 <template>
+<div>
     <v-navigation-drawer app v-model="$store.state.navVertical" class="menuBackground" dark>
       <v-row class="mt-4 column align-center" >
         <v-col>Foto</v-col>
@@ -17,23 +18,17 @@
  
       <v-list dense>
         <v-list-item link v-for="item in menuItems" :key="item.item" :to="{name: item.route}">
-          <v-list-item-icon>
+          <v-list-item-action>
             <v-icon class="menuText--text">{{item.fa}}</v-icon>
+          </v-list-item-action>
             <v-list-item-content>
-              <v-list-item-title class="menuText--text pl-6">{{item.item}}</v-list-item-title>
+              <v-list-item-title class="menuText--text">{{item.item}}</v-list-item-title>
             </v-list-item-content>
-          </v-list-item-icon>
         </v-list-item>
       </v-list>
  
- 
-      <v-row>
-        <v-col>
-         
-          <v-btn v-on:click="getMenu">test</v-btn>
-        </v-col>
-      </v-row>
     </v-navigation-drawer>
+</div>
 </template>
 
 <script>
@@ -45,19 +40,21 @@ export default ({
             menuItems: []
         }
     },
-    methods:{
-      getMenu(){
+    created: function () {
+      
         const user = localStorage.getItem("user")
         this.$api
           .get("/MenuResf/show/" + user)
           .then( response => {
-              console.log(response.data)
               this.menuItems = response.data
           })
           .catch(error =>{
             console.log(error)
           }) 
-      }
+    
+
+    },
+    methods:{
     }
     
 })

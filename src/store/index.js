@@ -20,7 +20,7 @@ export default new Vuex.Store({
   mutations: {
     login(state) {
       state.isLoggedIn = true
-      if (router.currentRoute.name !== "Home") router.push("/")
+      if (router.currentRoute.name !== "Home") router.push("/dashboard")
     },
     logout(state) {
       state.isLoggedIn = false
