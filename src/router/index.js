@@ -41,6 +41,11 @@ const routes = [
     component: () => import(/* webpackChunkName: "about" */ '../views/Calendar.vue')
   },
   {
+    path: '/createuser',
+    name: 'CreateUser',
+    component: () => import(/* webpackChunkName: "about" */ '../views/CreateUser.vue')
+  },
+  {
     path: '*',
     name: 'any',
     component: () => import(/* webpackChunkName: "about" */ '../views/Dashboard.vue')

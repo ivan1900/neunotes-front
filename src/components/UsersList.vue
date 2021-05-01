@@ -23,10 +23,11 @@
                 <v-container>
                     <v-row>
                         <v-col class="subtitle--text">
-                            Registros  Totales
+                            Registros Totales {{counterUsers}}
                         </v-col>
                         <v-col class="text-right">
-                            <v-btn color="primary" text>Mostrar mas</v-btn>       
+                            <v-btn color="primary" text v-if="!moreUsers" disabled>Mostrar mas</v-btn>
+                            <v-btn color="primary" text v-if="moreUsers">Mostrar mas</v-btn>       
                         </v-col>
                     </v-row>
                 </v-container>
@@ -44,8 +45,15 @@ export default {
             from: 0,
             to: 5,
             headers: [],
-            users: []
+            users: [],
+            counterUsers: 0
         }
+    },
+    computed:{
+        moreUsers(){
+            return this.users.length >= this.counterUsers
+        }
+
     },
     methods:{
         getUsers(){
@@ -62,7 +70,8 @@ export default {
                             value: key
                         })
                     }
-                }   
+                }
+                this.counterUsers = response.data.activeUsersCounter.value  
             })
             .catch(error =>{
                 console.log(error)
