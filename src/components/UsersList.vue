@@ -57,9 +57,10 @@ export default {
     },
     methods:{
         getUsers(){
-            const user = localStorage.getItem("user")
+            //const user = localStorage.getItem("user")
+            const language = this.$store.state.language
             this.$api
-            .get("/UsersResf/list/" + "/" + user + "/" + this.from + "/" + this.to)
+            .get("/UsersResf/list/" + language + "/" + this.from + "/" + this.to)
             .then( response => {
                 this.users = response.data.users
                 let heading = response.data.heading

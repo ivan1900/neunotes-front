@@ -11,14 +11,10 @@
     data() {
       return{}
     },
-    created() {
-      this.getCurrentUser()
-    },
+  
 
     methods:{
-      getCurrentUser(){
-        
-      }
+      
     }
   }
 </script>

@@ -97,10 +97,9 @@
                         </v-col>
                     </v-row>
                 </v-form>
-                <p>{{valid}}</p>
             </v-card-text>
         </v-card>
-        nombre {{form.name}}
+        {{languages}}
     </v-container>
 </template>
 
@@ -130,8 +129,24 @@ export default {
                 v => !!v || 'E-mail is required',
                 v => /.+@.+/.test(v) || 'E-mail must be valid',
             ],
-            languages:['spanish','english']
+            languages:[]
         }
+    },
+    created(){
+        const language = this.$store.state.language
+        this.$api
+            .get("/UsersResf/userForm/" + language )
+            .then(response => {
+                console.log(response.data);
+                this.languages = response.data.languages.map(function(item){
+                    return item.value
+                })
+
+                console.log(languages);
+            })
+            .catch(error => {
+                console.log(error);
+            })
     },
     methods:{
         submit(){
