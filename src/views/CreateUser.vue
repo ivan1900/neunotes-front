@@ -2,7 +2,7 @@
     <v-container>
         <v-card>
             <v-card-title>
-                Cear usuario
+                {{langMap.newUser}}
             </v-card-title>
             <v-divider></v-divider>
             <v-card-text>
@@ -11,21 +11,21 @@
                         <v-col>
                             <v-text-field
                             v-model="form.name"
-                            label="Nombre"
+                            :label="langMap.name"
                             required
                             ></v-text-field>
                         </v-col>
                         <v-col>
                             <v-text-field
                             v-model="form.user"
-                            label="Nombre de usuario"
+                            :label="langMap.userName"
                             required
                             ></v-text-field>
                         </v-col>
                         <v-col>
                             <v-text-field
                             v-model="form.email"
-                            label="Correo electrónico"
+                            :label="langMap.mail"
                             :rules="emailRules"
                             required
                             ></v-text-field>
@@ -35,21 +35,21 @@
                         <v-col>
                             <v-text-field
                             v-model="form.position"
-                            label="Cargo"
+                            :label="langMap.position"
                             required
                             ></v-text-field>
                         </v-col>
                         <v-col>
                             <v-text-field
                             v-model="form.address"
-                            label="Dirección"
+                            :label="langMap.address"
                             required
                             ></v-text-field>
                         </v-col>
                         <v-col>
                             <v-text-field
                             v-model="form.phone"
-                            label="Teléfono"
+                            :label="langMap.phone"
                             required
                             ></v-text-field>
                         </v-col>
@@ -59,14 +59,14 @@
                             <v-select
                             v-model="form.language"
                             :items="languages"
-                            label="Idioma"
+                            :label="langMap.language"
                             required
                             ></v-select>
                         </v-col>
                         <v-col>
                             <v-checkbox
                             v-model="form.active"
-                            label="Activo"
+                            :label="langMap.active"
                             ></v-checkbox>
                         </v-col>
                         <v-col>
@@ -76,9 +76,20 @@
                                 :rules="[rules.required, rules.min]"
                                 :type="show ? 'text' : 'password'"
                                 hint="Mininmo 6 caracteres"
-                                label="Contraseña"
+                                :label="langMap.password"
                                 @click:append="show = !show"
                             ></v-text-field>
+                        </v-col>
+                    </v-row>
+                    <v-row>
+                        <v-col cols="4"> 
+                            <v-select
+                            v-model="roleName"
+                            @change="asignRoleUuid"
+                            :items="roles"
+                            :label="langMap.role"
+                            required
+                            ></v-select>
                         </v-col>
                     </v-row>
                     <v-row>
@@ -89,17 +100,16 @@
                             class="mr-4"
                             @click="submit"
                             >
-                            enviar
+                            {{langMap.send}}
                             </v-btn>
-                            <v-btn @click="clear">
-                            limpiar
+                            <v-btn @click="clean">
+                            {{langMap.clean}}
                             </v-btn>
                         </v-col>
                     </v-row>
                 </v-form>
             </v-card-text>
         </v-card>
-        {{languages}}
     </v-container>
 </template>
 
@@ -110,15 +120,16 @@ export default {
         return{
             valid:false,
             form: {
-            name:'',
-            user:'',
-            password:'',
-            position:'',
-            address:'',
-            phone:'',
-            email:'',
-            active:true,
-            language:''
+                name:'',
+                user:'',
+                password:'',
+                position:'',
+                address:'',
+                phone:'',
+                email:'',
+                active:true,
+                language:'',
+                role:''
             },
             show: false,
             rules: {
@@ -129,7 +140,11 @@ export default {
                 v => !!v || 'E-mail is required',
                 v => /.+@.+/.test(v) || 'E-mail must be valid',
             ],
-            languages:[]
+            languages:[],
+            roles: [],
+            rolesMap: [],
+            langMap: [],
+            roleName: ''
         }
     },
     created(){
@@ -137,25 +152,51 @@ export default {
         this.$api
             .get("/UsersResf/userForm/" + language )
             .then(response => {
-                console.log(response.data);
+                this.roles = response.data.roles.map(function(item){
+                    return item.name
+                })
+                this.rolesMap = response.data.roles.map(function(item){
+                    var obj = {
+                        'roleName':item.name,
+                        'uuid': item.uuid
+                    }
+                    //obj[item.name] = item.uuid
+                    return obj
+                })
                 this.languages = response.data.languages.map(function(item){
                     return item.value
                 })
-
-                console.log(languages);
+                this.langMap = response.data.langMap
             })
             .catch(error => {
                 console.log(error);
             })
     },
     methods:{
+        asignRoleUuid(){
+            const result = this.rolesMap.find(item => item.roleName === this.roleName)
+            this.form.role = result.uuid
+        },
         submit(){
             this.$refs.userform.validate()
             if (this.valid){
-                console.log("validado");
+                const form = new FormData()
+                for (let key in this.form){
+                    form.append(key, this.form[key])
+                    console.log(key +" "+ this.form[key]);
+                }
+
+                this.$api
+                    .post("/UsersResf/create", form)
+                    .then(response => {
+                        console.log("success");
+                    })
+                    .catch(error => {
+                        console.log(error.resonse.data.error)
+                    })
             }
         },
-        clear(){
+        clean(){
             this.$refs.userform.resetValidation()
             
             for (let key in this.form){
