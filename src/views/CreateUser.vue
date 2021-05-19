@@ -110,6 +110,7 @@
                 </v-form>
             </v-card-text>
         </v-card>
+        {{form.role}}
     </v-container>
 </template>
 
@@ -160,7 +161,6 @@ export default {
                         'roleName':item.name,
                         'uuid': item.uuid
                     }
-                    //obj[item.name] = item.uuid
                     return obj
                 })
                 this.languages = response.data.languages.map(function(item){
