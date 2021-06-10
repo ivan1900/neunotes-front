@@ -59,18 +59,19 @@ export default {
         getUsers(){
             //const user = localStorage.getItem("user")
             const language = this.$store.state.language
+            const timezone = this.$store.state.timezone
             this.$api
-            .get("/UsersResf/list/" + language + "/" + this.from + "/" + this.to)
+            .get("/UsersResf/list/" + language + "/" + timezone.replace('/','_') + "/" + this.from + "/" + this.to)
             .then( response => {
                 this.users = response.data.users
                 let heading = response.data.heading
                 for (const[key, value] of Object.entries(heading)){
-                    if(key !== 'uuid'){
+                    
                         this.headers.push({
                             text: value,
                             value: key
                         })
-                    }
+                    
                 }
                 this.counterUsers = response.data.activeUsersCounter.value  
             })

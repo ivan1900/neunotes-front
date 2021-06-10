@@ -10,7 +10,8 @@ export default new Vuex.Store({
     navVertical: true,
     name: '',
     language: '',
-    position: ''
+    position: '',
+    timezone: ''
   },
   getters:{
     loginState: (state) => {
@@ -36,6 +37,9 @@ export default new Vuex.Store({
     },
     setPosition(state, position){
       state.position = position
+    },
+    setTimeZone(state, timeZone){
+      state.timezone = timeZone
     }
   },
   actions: {

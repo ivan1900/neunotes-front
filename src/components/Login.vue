@@ -125,6 +125,7 @@ export default {
               this.$store.commit("setName", response.data.name)
               this.$store.commit("setLanguage", response.data.language)
               this.$store.commit("setPosition", response.data.position)
+              this.$store.commit("setTimeZone", response.data.timezone) 
           })
           .catch(error =>{
             console.log(error)

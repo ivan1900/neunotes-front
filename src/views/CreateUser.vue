@@ -91,6 +91,15 @@
                             required
                             ></v-select>
                         </v-col>
+                        <v-col cols="4">
+                            <v-autocomplete
+                            v-model="form.timeZone"
+                            :items="timeZones"
+                            auto-select-first
+                            clearable
+                            required
+                            ></v-autocomplete>
+                        </v-col>
                     </v-row>
                     <v-row>
                         <v-col>
@@ -130,7 +139,8 @@ export default {
                 email:'',
                 active:true,
                 language:'',
-                role:''
+                role:'',
+                timeZone:''
             },
             show: false,
             rules: {
@@ -145,7 +155,8 @@ export default {
             roles: [],
             rolesMap: [],
             langMap: [],
-            roleName: ''
+            roleName: '',
+            timeZones: []
         }
     },
     created(){
@@ -153,6 +164,9 @@ export default {
         this.$api
             .get("/UsersResf/userForm/" + language )
             .then(response => {
+
+                this.timeZones =response.data.timeZones
+             
                 this.roles = response.data.roles.map(function(item){
                     return item.name
                 })
