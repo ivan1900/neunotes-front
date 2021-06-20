@@ -93,7 +93,7 @@
                         </v-col>
                         <v-col cols="4">
                             <v-autocomplete
-                            v-model="form.timeZone"
+                            v-model="form.timezone"
                             :items="timeZones"
                             auto-select-first
                             clearable
@@ -118,8 +118,24 @@
                     </v-row>
                 </v-form>
             </v-card-text>
+            <v-row>
+                <v-snackbar
+                :timeout="-1"
+                v-model="success"
+                top
+                >
+                Lorem ipsum dolor sit amet consectetur.
+                    <v-btn
+                    color="primary"
+                    text
+                    @click="success = false"
+                    >
+                    Close
+                    </v-btn>
+                </v-snackbar>
+
+            </v-row>
         </v-card>
-        {{form.role}}
     </v-container>
 </template>
 
@@ -128,6 +144,8 @@ export default {
     name: 'CreateUser',
     data(){
         return{
+            success:false,
+            message:'',
             valid:false,
             form: {
                 name:'',
@@ -140,7 +158,7 @@ export default {
                 active:true,
                 language:'',
                 role:'',
-                timeZone:''
+                timezone:''
             },
             show: false,
             rules: {
@@ -197,16 +215,20 @@ export default {
                 const form = new FormData()
                 for (let key in this.form){
                     form.append(key, this.form[key])
-                    console.log(key +" "+ this.form[key]);
                 }
+                form.append('langDisplay', this.$store.state.language)
 
                 this.$api
                     .post("/UsersResf/create", form)
                     .then(response => {
-                        console.log("success");
+                        console.log(response);
+                        this.message = response.data.success
+                        this.success = true;
+                        
                     })
                     .catch(error => {
-                        console.log(error.resonse.data.error)
+                        this.fail = true;
+                        console.log("error")
                     })
             }
         },
