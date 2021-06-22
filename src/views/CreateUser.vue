@@ -124,7 +124,7 @@
                 v-model="success"
                 top
                 >
-                Lorem ipsum dolor sit amet consectetur.
+                {{message}}
                     <v-btn
                     color="primary"
                     text
@@ -133,7 +133,22 @@
                     Close
                     </v-btn>
                 </v-snackbar>
-
+            </v-row>
+            <v-row>
+                <v-snackbar
+                :timeout="-1"
+                v-model="fail"
+                color="error"
+                top
+                >
+                {{message}}
+                    <v-btn
+                    text
+                    @click="fail = false"
+                    >
+                    Close
+                    </v-btn>
+                </v-snackbar>
             </v-row>
         </v-card>
     </v-container>
@@ -146,6 +161,7 @@ export default {
         return{
             success:false,
             message:'',
+            fail:false,
             valid:false,
             form: {
                 name:'',
@@ -222,13 +238,12 @@ export default {
                     .post("/UsersResf/create", form)
                     .then(response => {
                         console.log(response);
-                        this.message = response.data.success
-                        this.success = true;
-                        
+                        this.message = response.data.message
+                        this.success = true
                     })
                     .catch(error => {
-                        this.fail = true;
-                        console.log("error")
+                        this.fail = true
+                        this.message = error.response.data.message
                     })
             }
         },
