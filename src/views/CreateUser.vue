@@ -120,7 +120,7 @@
             </v-card-text>
             <v-row>
                 <v-snackbar
-                :timeout="-1"
+                :timeout="3000"
                 v-model="success"
                 top
                 >
@@ -136,7 +136,7 @@
             </v-row>
             <v-row>
                 <v-snackbar
-                :timeout="-1"
+                :timeout="10000"
                 v-model="fail"
                 color="error"
                 top
@@ -237,9 +237,9 @@ export default {
                 this.$api
                     .post("/UsersResf/create", form)
                     .then(response => {
-                        console.log(response);
                         this.message = response.data.message
                         this.success = true
+                        this.clean()
                     })
                     .catch(error => {
                         this.fail = true

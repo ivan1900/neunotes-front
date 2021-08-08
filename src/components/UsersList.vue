@@ -13,7 +13,6 @@
             <v-data-table
                 :headers="headers"
                 :items="users"
-                :items-per-page="5"
                 :search="search"
                 hide-default-footer
             >
@@ -27,7 +26,7 @@
                         </v-col>
                         <v-col class="text-right">
                             <v-btn color="primary" text v-if="!moreUsers" disabled>Mostrar mas</v-btn>
-                            <v-btn color="primary" text v-if="moreUsers">Mostrar mas</v-btn>       
+                            <v-btn color="primary" text v-if="moreUsers" v-on:click="showMore">Mostrar mas</v-btn>       
                         </v-col>
                     </v-row>
                 </v-container>
@@ -43,7 +42,7 @@ export default {
         return{
             search: '',
             from: 0,
-            to: 5,
+            to: 10,
             headers: [],
             users: [],
             counterUsers: 0
@@ -51,7 +50,7 @@ export default {
     },
     computed:{
         moreUsers(){
-            return this.users.length >= this.counterUsers
+            return this.users.length <= this.counterUsers
         }
 
     },
@@ -63,21 +62,30 @@ export default {
             this.$api
             .get("/UsersResf/list/" + language + "/" + timezone.replace('/','_') + "/" + this.from + "/" + this.to)
             .then( response => {
-                this.users = response.data.users
-                let heading = response.data.heading
-                for (const[key, value] of Object.entries(heading)){
-                    
-                        this.headers.push({
-                            text: value,
-                            value: key
-                        })
-                    
+
+                this.users = this.users.concat(response.data.users)
+                console.log(this.users);
+                if (this.from == 0){
+                    let heading = response.data.heading
+                    for (const[key, value] of Object.entries(heading)){
+                        
+                            this.headers.push({
+                                text: value,
+                                value: key
+                            })
+                        
+                    }
                 }
                 this.counterUsers = response.data.activeUsersCounter.value  
             })
             .catch(error =>{
                 console.log(error)
           }) 
+        },
+        showMore(){
+            this.from += 10
+            this.to += 10
+            this.getUsers()
         }
     },
     created(){
