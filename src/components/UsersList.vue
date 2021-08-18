@@ -10,12 +10,29 @@
                     hide-details
                 ></v-text-field>
             </v-card-title>
-            <v-data-table
+            <v-data-table v-if="!load" loading></v-data-table>
+            <v-data-table v-else
                 :headers="headers"
                 :items="users"
                 :search="search"
+                :items-per-page="-1"
                 hide-default-footer
             >
+            <template v-slot:[`item.actions`]="{ item }">
+                <v-icon
+                    small
+                    class="mr-2"
+                    @click="editItem(item)"
+                    >
+                    mdi-pencil
+                </v-icon>
+                <v-icon
+                    small
+                    @click="deleteItem(item)"
+                    >
+                    mdi-delete
+                </v-icon>
+            </template>
             </v-data-table>
             <v-divider></v-divider>
             <v-card-actions>
@@ -45,12 +62,13 @@ export default {
             to: 10,
             headers: [],
             users: [],
-            counterUsers: 0
+            counterUsers: 0,
+            load: false
         }
     },
     computed:{
         moreUsers(){
-            return this.users.length <= this.counterUsers
+            return this.users.length < this.counterUsers
         }
 
     },
@@ -62,9 +80,8 @@ export default {
             this.$api
             .get("/UsersResf/list/" + language + "/" + timezone.replace('/','_') + "/" + this.from + "/" + this.to)
             .then( response => {
-
+                console.log(response.data.users);
                 this.users = this.users.concat(response.data.users)
-                console.log(this.users);
                 if (this.from == 0){
                     let heading = response.data.heading
                     for (const[key, value] of Object.entries(heading)){
@@ -76,7 +93,8 @@ export default {
                         
                     }
                 }
-                this.counterUsers = response.data.activeUsersCounter.value  
+                this.counterUsers = response.data.activeUsersCounter.value
+                this.load = true  
             })
             .catch(error =>{
                 console.log(error)
@@ -86,6 +104,12 @@ export default {
             this.from += 10
             this.to += 10
             this.getUsers()
+        },
+        editItem(item){
+            console.log(item);
+        },
+        deleteItem(item){
+            console.log(item);
         }
     },
     created(){
