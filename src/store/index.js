@@ -11,7 +11,9 @@ export default new Vuex.Store({
     name: '',
     language: '',
     position: '',
-    timezone: ''
+    timezone: '',
+    dialog: false,
+    dialogContent: [] 
   },
   getters:{
     loginState: (state) => {
@@ -40,6 +42,9 @@ export default new Vuex.Store({
     },
     setTimeZone(state, timeZone){
       state.timezone = timeZone
+    },
+    setDialogContent(state, content){
+      state.dialogContent = content
     }
   },
   actions: {

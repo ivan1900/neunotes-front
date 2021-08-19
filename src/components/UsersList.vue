@@ -49,12 +49,20 @@
                 </v-container>
             </v-card-actions>
         </v-card>
+        <DialogYN></DialogYN>
     </div>
 </template>
 
 <script>
+
+import DialogYN from "@/components/DialogYN"
+
+
 export default {
     name: 'UsersList',
+    components: {
+        DialogYN
+    },
     data () {
         return{
             search: '',
@@ -80,7 +88,8 @@ export default {
             this.$api
             .get("/UsersResf/list/" + language + "/" + timezone.replace('/','_') + "/" + this.from + "/" + this.to)
             .then( response => {
-                console.log(response.data.users);
+                this.$store.commit('setDialogContent', response.data.langMapDialog)
+                console.log(this.$store.state.dialogContent);
                 this.users = this.users.concat(response.data.users)
                 if (this.from == 0){
                     let heading = response.data.heading
@@ -109,6 +118,7 @@ export default {
             console.log(item);
         },
         deleteItem(item){
+            this.$store.state.dialog = true
             console.log(item);
         }
     },
