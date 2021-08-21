@@ -20,7 +20,7 @@
                     <v-btn
                     color="primary"
                     text
-                    @click="$store.state.dialog = false"
+                    @click="confirmYes()"
                     >
                     {{$store.state.dialogContent.delete.accept}}
                     </v-btn>
@@ -38,7 +38,16 @@
     </div>
 </template>
 <script>
+
+import eventBus from '../eventBus'
+
 export default{
-    name: 'DialogYN'
+    name: 'DialogYN',
+
+    methods: {
+        confirmYes(){
+            eventBus.$emit('deleteUser',{confirm:'yes'})
+        }
+    },
 }
 </script>

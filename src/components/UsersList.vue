@@ -28,7 +28,7 @@
                 </v-icon>
                 <v-icon
                     small
-                    @click="deleteItem(item)"
+                    @click="showDialogDelete(item)"
                     >
                     mdi-delete
                 </v-icon>
@@ -56,7 +56,7 @@
 <script>
 
 import DialogYN from "@/components/DialogYN"
-
+import eventBus from '../eventBus'
 
 export default {
     name: 'UsersList',
@@ -71,8 +71,15 @@ export default {
             headers: [],
             users: [],
             counterUsers: 0,
-            load: false
+            load: false,
+            selectedUuid: ''
         }
+    },
+    mounted(){
+        eventBus.$on('deleteUser', (data)=> {
+            console.log('recibido');
+            this.deleteUser()
+        })        
     },
     computed:{
         moreUsers(){
@@ -88,6 +95,7 @@ export default {
             this.$api
             .get("/UsersResf/list/" + language + "/" + timezone.replace('/','_') + "/" + this.from + "/" + this.to)
             .then( response => {
+                console.log(response.data.langMapDialog);
                 this.$store.commit('setDialogContent', response.data.langMapDialog)
                 console.log(this.$store.state.dialogContent);
                 this.users = this.users.concat(response.data.users)
@@ -117,9 +125,14 @@ export default {
         editItem(item){
             console.log(item);
         },
-        deleteItem(item){
+        showDialogDelete(item){
+            this.selectedUuid = item.uuid
             this.$store.state.dialog = true
-            console.log(item);
+
+        },
+        deleteUser(){
+            this.$store.state.dialog = false
+            console.log(this.selectedUuid);
         }
     },
     created(){

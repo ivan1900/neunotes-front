@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import store from "../store/index.js"
+
 const guest = axios.create({
     baseURL: "http://enpro.com/LoginRes",
     headers:{
@@ -17,7 +18,7 @@ const api = axios.create({
       "X-Requested-With": "XMLHttpRequest",
     },
 });
-
+  
 api.interceptors.request.use((config) => {
     const token = localStorage.getItem("token");
     if (token) {

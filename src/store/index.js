@@ -57,7 +57,7 @@ export default new Vuex.Store({
     logout({ commit }) {
       commit("logout")
     },
-  namePreferences(){
+    namePreferences(){
       
     }    
   },
