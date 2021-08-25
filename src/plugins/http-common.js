@@ -1,4 +1,3 @@
-/*import Vue from 'vue'
 import axios from 'axios'
 import store from "../store/index.js"
 
@@ -11,7 +10,7 @@ const guest = axios.create({
     }
 });
 
-const api = axios.create({
+const ajax = axios.create({
     baseURL: "http://enpro.com",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
@@ -19,7 +18,7 @@ const api = axios.create({
     },
 });
   
-api.interceptors.request.use((config) => {
+ajax.interceptors.request.use((config) => {
     const token = localStorage.getItem("token");
     if (token) {
       config.headers["Authorization"] = "Bearer " + token;
@@ -27,7 +26,7 @@ api.interceptors.request.use((config) => {
     return config;
 });
   
-api.interceptors.response.use(
+ajax.interceptors.response.use(
     function(response) {
       return response;
     },
@@ -40,7 +39,4 @@ api.interceptors.response.use(
     }
 );
 
-Vue.prototype.$guest = guest
-Vue.prototype.$api = api
-
-export {guest, api}; */
+export {guest, ajax}

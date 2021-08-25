@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 import router from '../router/index'
+import usersmod from '../modules/usersmod'
+
 
 Vue.use(Vuex)
 
@@ -62,5 +64,6 @@ export default new Vuex.Store({
     }    
   },
   modules: {
+    usersmod
   }
 })

@@ -60,6 +60,9 @@
 </template>
 
 <script>
+
+import {guest,ajax} from "@/plugins/http-common"
+
 export default {
   data() {
     return {
@@ -95,7 +98,7 @@ export default {
           form.append('username', this.username)
           form.append('password', this.password)
           form.append('grant_type', 'password')       
-          this.$guest
+          guest
             .post('/login',form,{auth})
             .then((response) => {
               this.token = response.data.access_token;
@@ -119,7 +122,7 @@ export default {
       },
       userPreferences(){
         const user = localStorage.getItem("user")
-        this.$api
+        ajax
           .get("/UsersResf/show/" + user)
           .then( response => {
               this.$store.commit("setName", response.data.name)

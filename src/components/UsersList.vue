@@ -56,7 +56,8 @@
 <script>
 
 import DialogYN from "@/components/DialogYN"
-import eventBus from '../eventBus'
+//import eventBus from '../eventBus'
+import {ajax} from "@/plugins/http-common"
 
 export default {
     name: 'UsersList',
@@ -71,15 +72,14 @@ export default {
             headers: [],
             users: [],
             counterUsers: 0,
-            load: false,
-            selectedUuid: ''
+            load: false
         }
     },
     mounted(){
-        eventBus.$on('deleteUser', (data)=> {
+  /*      eventBus.$on('deleteUser', (data)=> {
             console.log('recibido');
             this.deleteUser()
-        })        
+        }) */        
     },
     computed:{
         moreUsers(){
@@ -92,12 +92,10 @@ export default {
             //const user = localStorage.getItem("user")
             const language = this.$store.state.language
             const timezone = this.$store.state.timezone
-            this.$api
+            ajax
             .get("/UsersResf/list/" + language + "/" + timezone.replace('/','_') + "/" + this.from + "/" + this.to)
             .then( response => {
-                console.log(response.data.langMapDialog);
                 this.$store.commit('setDialogContent', response.data.langMapDialog)
-                console.log(this.$store.state.dialogContent);
                 this.users = this.users.concat(response.data.users)
                 if (this.from == 0){
                     let heading = response.data.heading
@@ -126,13 +124,11 @@ export default {
             console.log(item);
         },
         showDialogDelete(item){
-            this.selectedUuid = item.uuid
+            this.$store.state.usersmod.id = item.id
             this.$store.state.dialog = true
-
         },
         deleteUser(){
             this.$store.state.dialog = false
-            console.log(this.selectedUuid);
         }
     },
     created(){

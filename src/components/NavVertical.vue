@@ -32,6 +32,9 @@
 </template>
 
 <script>
+
+import {ajax} from "@/plugins/http-common"
+
 export default ({
     name: 'NavVertical',
 
@@ -41,9 +44,8 @@ export default ({
         }
     },
     created: function () {
-      
         const user = localStorage.getItem("user")
-        this.$api
+        ajax
           .get("/MenuResf/show/" + user)
           .then( response => {
               this.menuItems = response.data

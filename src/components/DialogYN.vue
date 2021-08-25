@@ -39,14 +39,15 @@
 </template>
 <script>
 
-import eventBus from '../eventBus'
+//import eventBus from '../eventBus'
 
 export default{
     name: 'DialogYN',
-
+    
     methods: {
         confirmYes(){
-            eventBus.$emit('deleteUser',{confirm:'yes'})
+            //eventBus.$emit('deleteUser',{confirm:'yes'})
+            this.$store.dispatch('usersmod/delete')
         }
     },
 }

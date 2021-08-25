@@ -155,6 +155,9 @@
 </template>
 
 <script>
+
+import {ajax} from "@/plugins/http-common"
+
 export default {
     name: 'CreateUser',
     data(){
@@ -195,7 +198,7 @@ export default {
     },
     created(){
         const language = this.$store.state.language
-        this.$api
+        ajax
             .get("/UsersResf/userForm/" + language )
             .then(response => {
 
@@ -234,7 +237,7 @@ export default {
                 }
                 form.append('langDisplay', this.$store.state.language)
 
-                this.$api
+                ajax
                     .post("/UsersResf/create", form)
                     .then(response => {
                         this.message = response.data.message
