@@ -50,6 +50,7 @@
             </v-card-actions>
         </v-card>
         <DialogYN></DialogYN>
+        <SnackAlert></SnackAlert>
     </div>
 </template>
 
@@ -58,11 +59,13 @@
 import DialogYN from "@/components/DialogYN"
 //import eventBus from '../eventBus'
 import {ajax} from "@/plugins/http-common"
+import SnackAlert from "@/components/SnackAlert"
 
 export default {
     name: 'UsersList',
     components: {
-        DialogYN
+        DialogYN,
+        SnackAlert
     },
     data () {
         return{
@@ -124,7 +127,9 @@ export default {
             console.log(item);
         },
         showDialogDelete(item){
-            this.$store.state.usersmod.id = item.id
+            this.$store.commit('usersmod/setId',item.id)
+            console.log(this.$store.state.usersmod.id)
+            //this.$store.state.usersmod.id = item.id
             this.$store.state.dialog = true
         },
         deleteUser(){

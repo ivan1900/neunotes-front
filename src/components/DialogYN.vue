@@ -48,6 +48,7 @@ export default{
         confirmYes(){
             //eventBus.$emit('deleteUser',{confirm:'yes'})
             this.$store.dispatch('usersmod/delete')
+            this.$store.state.dialog = false
         }
     },
 }
