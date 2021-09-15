@@ -11,15 +11,15 @@ const usersmod = {
         }
     },
     actions:{
-        delete({state, commit}){
+        delete({state, commit, rootState}){
             const form = new FormData()
             form.append('id', state.id)
-            //form.append('langDisplay', rootState.language)
-            form.append('langDisplay', '')
+            form.append('langDisplay', rootState.language)
             ajax
                 .post("/UsersResf/remove", form)
                 .then(response => {
                     //console.log(response.data)
+                    commit('snackbarmod/setShowSuccess', "mensaje succes", {root:true})
                 })
                 .catch(error => {
                     //console.log(error)

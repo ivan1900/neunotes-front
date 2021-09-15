@@ -2,13 +2,13 @@
     <v-snackbar
         :timeout="timeout"
         v-model="show"
+        :color="color"
         top
         >
         {{message}}
         <v-btn
-        :color="color"
         text
-        @click="show = false"
+        @click="setShowFalse"
         >
         Close
         </v-btn>
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import {mapState} from 'vuex'
+import {mapGetters, mapMutations, mapState} from 'vuex'
 
 export default {
     name: 'SnackAlert',
@@ -24,10 +24,11 @@ export default {
         
     }),
     computed: {
+        //...mapGetters('snackbarmod', ['isShow']),
         ...mapState('snackbarmod', ['show','message','timeout','color'])
     },
     methods: {
-      
+        ...mapMutations('snackbarmod', ['setShowFalse'])
     }
 }
 </script>

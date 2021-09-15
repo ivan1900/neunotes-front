@@ -3,11 +3,11 @@ const snackbarmod = {
     state: {
         show: false,
         message: '',
-        timeout: 0,
+        timeout: -1,
         color: ''
     },
     mutations:{
-        setShowSucces(state, message){
+        setShowSuccess(state, message){
             state.show = true
             state.message = message
             state.color = "primary"
@@ -19,7 +19,7 @@ const snackbarmod = {
             state.color = "error"
             state.timeout = 10000
         },
-        setShowFalse(){
+        setShowFalse(state){
             state.show = false
         }
     },
@@ -27,7 +27,9 @@ const snackbarmod = {
        
     },
     getters:{
-
+        isShow: (state) => {
+            return state.show
+        }
     }
 
 }
