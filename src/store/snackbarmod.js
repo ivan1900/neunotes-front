@@ -21,15 +21,18 @@ const snackbarmod = {
         },
         setShowFalse(state){
             state.show = false
+        },
+        updateShow(state, value){
+            state.show = value
         }
     },
     actions:{
        
     },
     getters:{
-        isShow: (state) => {
+        /*isShow: (state) => {
             return state.show
-        }
+        }*/
     }
 
 }

@@ -49,23 +49,20 @@
                 </v-container>
             </v-card-actions>
         </v-card>
-        <DialogYN></DialogYN>
-        <SnackAlert></SnackAlert>
+        
     </div>
 </template>
 
 <script>
 
-import DialogYN from "@/components/DialogYN"
-//import eventBus from '../eventBus'
+
 import {ajax} from "@/plugins/http-common"
-import SnackAlert from "@/components/SnackAlert"
+//import SnackAlert from "@/components/SnackAlert"
 
 export default {
     name: 'UsersList',
     components: {
-        DialogYN,
-        SnackAlert
+        
     },
     data () {
         return{
@@ -77,12 +74,6 @@ export default {
             counterUsers: 0,
             load: false
         }
-    },
-    mounted(){
-  /*      eventBus.$on('deleteUser', (data)=> {
-            console.log('recibido');
-            this.deleteUser()
-        }) */        
     },
     computed:{
         moreUsers(){
@@ -98,7 +89,6 @@ export default {
             ajax
             .get("/UsersResf/list/" + language + "/" + timezone.replace('/','_') + "/" + this.from + "/" + this.to)
             .then( response => {
-                this.$store.commit('setDialogContent', response.data.langMapDialog)
                 this.users = this.users.concat(response.data.users)
                 if (this.from == 0){
                     let heading = response.data.heading
@@ -128,12 +118,14 @@ export default {
         },
         showDialogDelete(item){
             this.$store.commit('usersmod/setId',item.id)
-            console.log(this.$store.state.usersmod.id)
-            //this.$store.state.usersmod.id = item.id
-            this.$store.state.dialog = true
-        },
-        deleteUser(){
-            this.$store.state.dialog = false
+            let payload = {
+                title:'Eliminar Usuario',
+                message:'¿Estas Segruo?',
+                accept:'Aceptar',
+                cancel:'Cancelar',
+                dispatchAccept:'usersmod/delete'
+                }
+            this.$store.commit('dialogYNmod/setShow',payload)
         }
     },
     created(){

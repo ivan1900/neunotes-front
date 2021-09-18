@@ -3,6 +3,7 @@ import Vuex from 'vuex'
 import router from '../router/index'
 import usersmod from './usersmod'
 import snackbarmod from './snackbarmod'
+import dialogYNmod from './dialogYNmod'
 
 Vue.use(Vuex)
 
@@ -13,9 +14,7 @@ export default new Vuex.Store({
     name: '',
     language: '',
     position: '',
-    timezone: '',
-    dialog: false,
-    dialogContent: [] 
+    timezone: ''
   },
   getters:{
     loginState: (state) => {
@@ -44,9 +43,6 @@ export default new Vuex.Store({
     },
     setTimeZone(state, timeZone){
       state.timezone = timeZone
-    },
-    setDialogContent(state, content){
-      state.dialogContent = content
     }
   },
   actions: {
@@ -65,6 +61,7 @@ export default new Vuex.Store({
   },
   modules: {
     usersmod,
-    snackbarmod
+    snackbarmod,
+    dialogYNmod
   }
 })

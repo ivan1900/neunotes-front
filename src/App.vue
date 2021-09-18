@@ -5,6 +5,8 @@
     <v-main class="background">
       <router-view></router-view>
     </v-main>
+    <SnackAlert></SnackAlert>
+    <DialogYN></DialogYN>
     <Footer/>
   </v-app>
 </template>
@@ -14,7 +16,8 @@
 import TopBar from './components/TopBar';
 import NavVertical from './components/NavVertical';
 import Footer from './components/Footer';
-
+import SnackAlert from "@/components/SnackAlert"
+import DialogYN from "@/components/DialogYN"
 
 export default {
   name: 'App',
@@ -22,7 +25,9 @@ export default {
   components: {
     TopBar,
     NavVertical,
-    Footer
+    Footer,
+    SnackAlert,
+    DialogYN
   },
 
   data: () => ({

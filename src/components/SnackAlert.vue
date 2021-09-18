@@ -1,7 +1,7 @@
 <template>
     <v-snackbar
         :timeout="timeout"
-        v-model="show"
+        v-model="showSnack"
         :color="color"
         top
         >
@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import {mapGetters, mapMutations, mapState} from 'vuex'
+import {mapMutations, mapState} from 'vuex'
 
 export default {
     name: 'SnackAlert',
@@ -24,8 +24,16 @@ export default {
         
     }),
     computed: {
-        //...mapGetters('snackbarmod', ['isShow']),
-        ...mapState('snackbarmod', ['show','message','timeout','color'])
+//...mapGetters('snackbarmod', ['isShow']),
+        ...mapState('snackbarmod', ['show','message','timeout','color']),
+        showSnack:{
+            get(){
+                return this.$store.state.snackbarmod.show 
+            },
+            set(value){
+                this.$store.commit('snackbarmod/updateShow',value)       
+            }
+        }
     },
     methods: {
         ...mapMutations('snackbarmod', ['setShowFalse'])
