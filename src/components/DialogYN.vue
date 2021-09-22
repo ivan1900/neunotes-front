@@ -52,6 +52,7 @@ export default{
         confirmYes(){
             //eventBus.$emit('deleteUser',{confirm:'yes'})
             this.$store.dispatch(this.dispatchAccept)
+            
             this.$store.commit('dialogYNmod/setShowFalse')
         }
     },

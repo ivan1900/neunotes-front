@@ -13,7 +13,7 @@
             <v-data-table v-if="!load" loading></v-data-table>
             <v-data-table v-else
                 :headers="headers"
-                :items="users"
+                :items="usersList"
                 :search="search"
                 :items-per-page="-1"
                 hide-default-footer
@@ -57,6 +57,7 @@
 
 
 import {ajax} from "@/plugins/http-common"
+import { mapState } from 'vuex'
 //import SnackAlert from "@/components/SnackAlert"
 
 export default {
@@ -67,19 +68,20 @@ export default {
     data () {
         return{
             search: '',
-            from: 0,
-            to: 10,
             headers: [],
-            users: [],
-            counterUsers: 0,
             load: false
         }
     },
     computed:{
+        ...mapState('usersmod',['indexTable','usersList','counterUsers','from','to']),
         moreUsers(){
-            return this.users.length < this.counterUsers
+            return this.usersList.length < this.counterUsers
         }
-
+    },
+    mounted: function(){
+        this.$store.commit('usersmod/usersListClear')
+        this.$store.commit('usersmod/setFrom', 0)
+        this.$store.commit('usersmod/setTo', 10)
     },
     methods:{
         getUsers(){
@@ -89,7 +91,8 @@ export default {
             ajax
             .get("/UsersResf/list/" + language + "/" + timezone.replace('/','_') + "/" + this.from + "/" + this.to)
             .then( response => {
-                this.users = this.users.concat(response.data.users)
+                //this.users = this.users.concat(response.data.users)
+                this.$store.commit('usersmod/setUsersList', response.data.users)
                 if (this.from == 0){
                     let heading = response.data.heading
                     for (const[key, value] of Object.entries(heading)){
@@ -101,7 +104,8 @@ export default {
                         
                     }
                 }
-                this.counterUsers = response.data.activeUsersCounter.value
+                //this.counterUsers = response.data.activeUsersCounter.value
+                this.$store.commit('usersmod/setCounterUsers',response.data.activeUsersCounter.value)
                 this.load = true  
             })
             .catch(error =>{
@@ -109,8 +113,8 @@ export default {
           }) 
         },
         showMore(){
-            this.from += 10
-            this.to += 10
+            this.$store.commit('usersmod/setFrom', this.from += 10)
+            this.$store.commit('usersmod/setTo', this.to += 10)
             this.getUsers()
         },
         editItem(item){
@@ -118,6 +122,7 @@ export default {
         },
         showDialogDelete(item){
             this.$store.commit('usersmod/setId',item.id)
+            this.$store.commit('usersmod/setIndexTable',this.usersList.indexOf(item))
             let payload = {
                 title:'Eliminar Usuario',
                 message:'¿Estas Segruo?',
@@ -126,7 +131,7 @@ export default {
                 dispatchAccept:'usersmod/delete'
                 }
             this.$store.commit('dialogYNmod/setShow',payload)
-        }
+        },
     },
     created(){
         this.getUsers()
