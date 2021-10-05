@@ -1,19 +1,23 @@
 <template>
     <div>
-        <v-container>
-            <v-card>
-                <v-card-title>
-                    
-                </v-card-title>
-            </v-card>
-        </v-container>
+        <v-card>
+            <v-card-title>
+                {{langMap.notes}}
+            </v-card-title>
+        </v-card>
+           
+        
     </div>
 </template>
 
 <script>
-import { defineComponent } from '@vue/composition-api'
+
+import { mapState } from 'vuex'
 
 export default {
-    name: 'CreateNote'
+    name: 'CreateNote',
+    computed: {
+        ...mapState('languagemod',['langMap'])
+    },
 }
 </script>

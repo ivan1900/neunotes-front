@@ -4,6 +4,7 @@ import router from '../router/index'
 import usersmod from './usersmod'
 import snackbarmod from './snackbarmod'
 import dialogYNmod from './dialogYNmod'
+import languagemod from './languagemod'
 
 Vue.use(Vuex)
 
@@ -62,6 +63,7 @@ export default new Vuex.Store({
   modules: {
     usersmod,
     snackbarmod,
-    dialogYNmod
+    dialogYNmod,
+    languagemod
   }
 })

@@ -125,10 +125,11 @@ export default {
         ajax
           .get("/UsersResf/show/" + user)
           .then( response => {
-              this.$store.commit("setName", response.data.name)
-              this.$store.commit("setLanguage", response.data.language)
-              this.$store.commit("setPosition", response.data.position)
-              this.$store.commit("setTimeZone", response.data.timezone) 
+            this.$store.commit("setName", response.data.name)
+            this.$store.commit("setLanguage", response.data.language)
+            this.$store.commit("setPosition", response.data.position)
+            this.$store.commit("setTimeZone", response.data.timezone) 
+            this.$store.dispatch('languagemod/loadLanguage')
           })
           .catch(error =>{
             console.log(error)
