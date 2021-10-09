@@ -7,14 +7,24 @@
                     {{langMap.notes}}
                 </v-col>
                 <v-col class="text-right">
-                    <v-btn fab x-small color="primary" elevation="0" dark>
-                    <v-icon>mdi-plus-thick</v-icon>
-                    </v-btn>
+                    <template v-if="!showCreateNote">
+                        <v-btn v-on:click="showCreateNoteComponent()"  fab x-small color="primary" elevation="0" dark>
+                            <v-icon>mdi-plus-thick</v-icon>
+                        </v-btn>
+                    </template>
+                    <template v-else>
+                        <v-btn v-on:click="hideCreateNoteComponent()"  fab x-small color="secondary" elevation="0" dark>
+                            <v-icon>mdi-undo</v-icon>
+                        </v-btn>
+                    </template>
                 </v-col>
+            
                 </v-row>
             </v-container>
         </v-banner>
-        <CreateNote/>
+            <div v-if="showCreateNote">
+                <CreateNote/>
+            </div>
     </v-container>
 </template>
 
@@ -30,7 +40,16 @@ export default {
        CreateNote
     },
     computed:{
-        ...mapState('languagemod',['langMap'])
+        ...mapState('languagemod',['langMap']),
+        ...mapState('notesmod',['showCreateNote'])
+    },
+    methods:{
+        showCreateNoteComponent(){
+            this.$store.commit('notesmod/show')
+        },
+        hideCreateNoteComponent(){
+            this.$store.commit('notesmod/hide')
+        }
     }
 }
 </script>
