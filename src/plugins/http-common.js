@@ -2,7 +2,7 @@ import axios from 'axios'
 import store from "../store/index.js"
 
 const guest = axios.create({
-    baseURL: "http://enpro.com/LoginRes",
+    baseURL: process.env.VUE_APP_BASEURL_LOGIN,
     headers:{
         "Content-Type": "application/x-www-form-urlencoded; chartset=UTF-8",
         "X-Requested-With": "XMLHttpRequest",
@@ -11,7 +11,7 @@ const guest = axios.create({
 });
 
 const ajax = axios.create({
-    baseURL: "http://enpro.com",
+    baseURL: process.env.VUE_APP_BASEURL,
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
       "X-Requested-With": "XMLHttpRequest",
