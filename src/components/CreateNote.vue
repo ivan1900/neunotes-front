@@ -50,6 +50,7 @@
 
 <script>
 
+import {ajax} from "@/plugins/http-common"
 import { mapState } from 'vuex'
 
 export default {
@@ -71,17 +72,31 @@ export default {
     },
     methods:{
         submit(){
-            console.log("enviado")
+            this.$refs.noteform.validate()
+            if(this.valid){
+                const form = new FormData()
+                for (let key in this.form){
+                    form.append(key, this.form[key])
+                }
+                 ajax
+                    .post("/NotesResf/create", form)
+                    .then(response => {
+                        this.$store.commit('snackbarmod/setShowSuccess', this.langMap.messageSuccesSave)
+                        this.clean()
+                    })
+                    .catch(error => {
+                        console.log(error);
+                        console.log(this.langMap.messageFailSave);
+                        this.$store.commit('snackbarmod/setShowDanger', this.langMap.messageFailSave)
+                    })
+                
+            }
         },
         clean(){
             this.$refs.noteform.resetValidation()
             
             for (let key in this.form){
-                if(key !== 'active'){
-                    this.form[key] = ''
-                }else{
-                    this.form[key] = true
-                }
+                this.form[key] = ''
             }
         }
     }
