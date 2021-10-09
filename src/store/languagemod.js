@@ -21,7 +21,6 @@ const languagemod = {
                     state.langMapForms = response.data.langMapForms
                     state.langMapErrorCodes = response.data.langMapErrorCodes
                     state.langMapDialogs = response.data.langMapDialogs
-                    console.log(state.langMap)
                 })
                 .catch(error => {
                     console.log(error)   
