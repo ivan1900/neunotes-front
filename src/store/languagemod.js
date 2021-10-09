@@ -9,9 +9,7 @@ const languagemod = {
         langMapDialogs:[]
     },
     mutations: {
-        test(){
-            console.log("test")
-        }
+       
     },
     actions:{
         loadLanguage({state, rootState}){
