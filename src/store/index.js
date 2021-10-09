@@ -5,6 +5,7 @@ import usersmod from './usersmod'
 import snackbarmod from './snackbarmod'
 import dialogYNmod from './dialogYNmod'
 import languagemod from './languagemod'
+import notesmod from './notesmod'
 
 Vue.use(Vuex)
 
@@ -64,6 +65,7 @@ export default new Vuex.Store({
     usersmod,
     snackbarmod,
     dialogYNmod,
-    languagemod
+    languagemod,
+    notesmod
   }
 })
