@@ -1,24 +1,11 @@
 # dafne
 
+Example frontend with VUE 2, that consumes API of project [neunotes back](https://github.com/ivan1900/neunotes)
+
+Only for educational purpouses
+
 ## Project setup
 ```
 npm install
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
